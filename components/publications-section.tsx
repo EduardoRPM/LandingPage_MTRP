@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 const publications = [
   {
     year: 2025,
-    title: "Emerging genetic diversity of Mycoplasma gallisepticum in Mexican house finches: Evidence of possible independent spillover events",
+    title: <>Emerging genetic diversity of <i>Mycoplasma gallisepticum</i> in Mexican house finches: Evidence of possible independent spillover events</>,
     journal: "Infection, Genetics and Evolution",
     authors: "Reinoso-Pérez, M.T., Díaz-Ávila, L.E., Jacobo, S.G., Rodríguez-García, V.M. and Dhondt, A.A.",
     tags: ["Mycoplasma", "Genetics"],
@@ -44,7 +44,7 @@ const publications = [
   },
   {
     year: 2022,
-    title: "Changes in tissue tropism of Mycoplasma gallisepticum following host jump",
+    title: <>Changes in tissue tropism of <i>Mycoplasma gallisepticum</i> following host jump</>,
     journal: "Journal of Wildlife Diseases",
     authors: "Reinoso-Pérez, M.T., Levitskiy, A.A., Dhondt, K.V., Cole, N., Tulman, E., Geary, S.J. and Dhondt, A.A.",
     tags: ["Mycoplasma", "Evolution"],

@@ -24,7 +24,7 @@ const timelineItems = [
     year: "2018-2024",
     title: "PhD in Ecology & Evolutionary Biology",
     organization: "Cornell University",
-    description: "Thesis: Ecology, evolution and epidemiology of Mycoplasma gallisepticum infections in wild avian populations",
+    description: <>Thesis: Ecology, evolution and epidemiology of <i>Mycoplasma gallisepticum</i> infections in wild avian populations</>,
     type: "education",
   },
   {

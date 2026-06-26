@@ -9,9 +9,9 @@ import { Badge } from "@/components/ui/badge"
 const researchAreas = [
   {
     id: "mycoplasma",
-    title: "Mycoplasma gallisepticum",
+    title: <><i>Mycoplasma gallisepticum</i></>,
     subtitle: "Emerging Disease in Wild Birds",
-    description: "Investigating the ecology, evolution, and epidemiology of Mycoplasma gallisepticum infections in wild House Finches across North America. This research examines host-pathogen dynamics, tissue tropism changes, and potential spillover events.",
+    description: <>Investigating the ecology, evolution, and epidemiology of <i>Mycoplasma gallisepticum</i> infections in wild House Finches across North America. This research examines host-pathogen dynamics, tissue tropism changes, and potential spillover events.</>,
     tags: ["Disease Ecology", "Evolution", "Epidemiology"],
     papers: 8,
   },

@@ -56,7 +56,7 @@ export function AboutSection() {
               <p>
                 With a PhD from Cornell University, I have spent over a decade studying the ecology, 
                 evolution, and epidemiology of avian diseases, particularly focusing on 
-                <span className="text-foreground font-medium"> Mycoplasma gallisepticum</span> infections 
+                <span className="text-foreground font-medium"> <i>Mycoplasma gallisepticum</i></span> infections 
                 in House Finches and <span className="text-foreground font-medium">Haemosporidian</span> parasites 
                 across various bird species.
               </p>
