@@ -20,18 +20,6 @@ const contactInfo = [
     href: "mailto:maryte.reinoso@gmail.com",
   },
   {
-    icon: Phone,
-    label: "Phone (Mexico)",
-    value: "+52 442 175 7455",
-    href: "tel:+524421757455",
-  },
-  {
-    icon: Phone,
-    label: "Phone (USA)",
-    value: "+1 607 279 6740",
-    href: "tel:+16072796740",
-  },
-  {
     icon: MapPin,
     label: "Location",
     value: "Tucson, Arizona, USA",
