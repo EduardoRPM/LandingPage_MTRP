@@ -7,6 +7,8 @@ import './globals.css'
 const _dmSans = DM_Sans({ subsets: ["latin"], variable: '--font-sans' });
 const _playfair = Playfair_Display({ subsets: ["latin"], variable: '--font-serif' });
 
+const basePath = process.env.NODE_ENV === 'production' ? '/LandingPage_MTRP' : ''
+
 export const metadata: Metadata = {
   title: 'María Teresa Reinoso Pérez, PhD | Disease Ecology & Ornithology',
   description: 'Postdoctoral researcher specializing in avian disease ecology, evolutionary biology, and molecular epidemiology. Cornell University & University of Arizona.',
@@ -14,11 +16,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/icon.svg',
+        url: `${basePath}/icon.svg`,
         type: 'image/svg+xml',
       },
     ],
-    apple: '/icon.svg',
+    apple: `${basePath}/icon.svg`,
   },
 }
 

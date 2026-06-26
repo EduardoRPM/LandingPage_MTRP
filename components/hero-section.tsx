@@ -6,6 +6,8 @@ import { motion } from "framer-motion"
 import { ArrowDown, Mail, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+const basePath = process.env.NODE_ENV === "production" ? "/LandingPage_MTRP" : ""
+
 export function HeroSection() {
   const [threeLoaded, setThreeLoaded] = useState(false)
   const [vantaLoaded, setVantaLoaded] = useState(false)
@@ -81,13 +83,13 @@ export function HeroSection() {
   return (
     <>
       <Script
-        src="/three.r134.min.js"
+        src={`${basePath}/three.r134.min.js`}
         strategy="afterInteractive"
         onLoad={() => setThreeLoaded(true)}
       />
       {threeLoaded && (
         <Script
-          src="/vanta.birds.min.js"
+          src={`${basePath}/vanta.birds.min.js`}
           strategy="afterInteractive"
           onLoad={() => setVantaLoaded(true)}
         />
