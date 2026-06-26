@@ -7,14 +7,48 @@ import { ArrowDown, Mail, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const basePath = process.env.NODE_ENV === "production" ? "/LandingPage_MTRP" : ""
+const vantaDisabledKey = "mtrp:vanta-disabled"
+
+function canCreateWebGLContext() {
+  try {
+    const canvas = document.createElement("canvas")
+    const context = canvas.getContext("webgl2") || canvas.getContext("webgl") || canvas.getContext("experimental-webgl")
+    return Boolean(context)
+  } catch {
+    return false
+  }
+}
+
+function disableVantaForSession() {
+  try {
+    window.sessionStorage.setItem(vantaDisabledKey, "true")
+  } catch {
+    // Ignore storage errors; the runtime guard is enough for this page load.
+  }
+}
+
+function isVantaDisabledForSession() {
+  try {
+    return window.sessionStorage.getItem(vantaDisabledKey) === "true"
+  } catch {
+    return false
+  }
+}
 
 export function HeroSection() {
   const [threeLoaded, setThreeLoaded] = useState(false)
   const [vantaLoaded, setVantaLoaded] = useState(false)
+  const [canUseVanta, setCanUseVanta] = useState(true)
   const myRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      if (isVantaDisabledForSession() || !canCreateWebGLContext()) {
+        disableVantaForSession()
+        setCanUseVanta(false)
+        return
+      }
+
       if ((window as any).THREE) setThreeLoaded(true)
       if ((window as any).VANTA?.BIRDS) setVantaLoaded(true)
     }
@@ -26,6 +60,8 @@ export function HeroSection() {
     let effect: any = null
 
     const initVanta = () => {
+      if (!canUseVanta || isVantaDisabledForSession()) return
+
       if (effect) {
         effect.destroy()
         effect = null
@@ -34,26 +70,32 @@ export function HeroSection() {
       if (typeof window !== "undefined" && (window as any).VANTA?.BIRDS) {
         const isDark = document.documentElement.classList.contains('dark')
 
-        effect = (window as any).VANTA.BIRDS({
-          el: myRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
-          scale: 1.00,
-          scaleMobile: 1.00,
-          backgroundColor: isDark ? 0x121118 : 0xfdfcff,
-          color1: isDark ? 0xa855f7 : 0x7f44b2,
-          color2: isDark ? 0xf3f4f6 : 0x221f2d,
-          birdSize: 2.00,
-          wingSpan: 15.00,
-          speedLimit: 4.00,
-          separation: 46.00,
-          alignment: 51.00,
-          cohesion: 54.00,
-          quantity: 2.00
-        })
+        try {
+          effect = (window as any).VANTA.BIRDS({
+            el: myRef.current,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            backgroundColor: isDark ? 0x121118 : 0xfdfcff,
+            color1: isDark ? 0xa855f7 : 0x7f44b2,
+            color2: isDark ? 0xf3f4f6 : 0x221f2d,
+            birdSize: 2.00,
+            wingSpan: 15.00,
+            speedLimit: 4.00,
+            separation: 46.00,
+            alignment: 51.00,
+            cohesion: 54.00,
+            quantity: 2.00
+          })
+        } catch (error) {
+          console.warn("Vanta background disabled because WebGL is unavailable.", error)
+          disableVantaForSession()
+          setCanUseVanta(false)
+        }
       }
     }
 
@@ -78,26 +120,30 @@ export function HeroSection() {
       }
       observer.disconnect()
     }
-  }, [vantaLoaded])
+  }, [vantaLoaded, canUseVanta])
 
   return (
     <>
-      <Script
-        src={`${basePath}/three.r134.min.js`}
-        strategy="afterInteractive"
-        onLoad={() => setThreeLoaded(true)}
-      />
-      {threeLoaded && (
+      {canUseVanta && (
+        <Script
+          src={`${basePath}/three.r134.min.js`}
+          strategy="afterInteractive"
+          onLoad={() => setThreeLoaded(true)}
+          onError={() => setCanUseVanta(false)}
+        />
+      )}
+      {canUseVanta && threeLoaded && (
         <Script
           src={`${basePath}/vanta.birds.min.js`}
           strategy="afterInteractive"
           onLoad={() => setVantaLoaded(true)}
+          onError={() => setCanUseVanta(false)}
         />
       )}
 
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Vanta background */}
-        <div ref={myRef} className="absolute inset-0 z-0" />
+        <div ref={myRef} className="absolute inset-0 z-0 bg-gradient-to-br from-background via-primary/5 to-background" />
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <motion.div
